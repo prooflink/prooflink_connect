@@ -27,14 +27,14 @@ module ProoflinkConnect
       if resp.code == '200'
         begin
           data = JSON.parse(resp.body)
+          return PortableContacts::Person.new(data['entry'])
         rescue JSON::ParserError => err
           raise AuthinfoException.new(resp), 'Unable to parse JSON response' + resp.body.inspect
         end
       else
         raise AuthinfoException, "Unexpected HTTP status code from server: #{resp.code}"
       end
-
-      data
+      # PortableContacts::Person.new(data['entry'])
     end
 
     class AuthinfoException < ::StandardError

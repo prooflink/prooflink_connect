@@ -1,6 +1,7 @@
 module ProoflinkConnect
   autoload :Configuration, "prooflink_connect/configuration"
   autoload :Assertion, "prooflink_connect/assertion"
+  autoload :PortableContacts, "prooflink_connect/portable_contacts"
 
   def self.config
     Configuration.instance

@@ -5,11 +5,11 @@ Gem::Specification.new do |s|
   s.name        = "prooflink_connect"
   s.version     = ProoflinkConnect::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = []
-  s.email       = []
-  s.homepage    = "http://rubygems.org/gems/prooflink_connect"
-  s.summary     = "TODO: Write a gem summary"
-  s.description = "TODO: Write a gem description"
+  s.authors     = ["Chiel Wester"]
+  s.email       = "chiel.wester@holder.nl"
+  s.homepage    = "https://github.com/chielwester/prooflink_connect"
+  s.summary     = "Make a connection to the prooflink connect api"
+  s.description = "Make a connection to the prooflink connect api for single sign on authentication"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "prooflink_connect"
