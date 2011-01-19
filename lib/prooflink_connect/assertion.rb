@@ -6,7 +6,7 @@ module ProoflinkConnect
       @token = token
     end
 
-    def auth_info
+    def request_auth_info
       url = URI.parse("#{ProoflinkConnect.config.protocol}://#{[ProoflinkConnect.config.subdomain, ProoflinkConnect.config.provider_endpoint].compact.join(".")}/client_assertions/auth_info/")
       # query = partial_query.dup
       query = {}
@@ -27,14 +27,16 @@ module ProoflinkConnect
       if resp.code == '200'
         begin
           data = JSON.parse(resp.body)
-          return PortableContacts::Person.new(data['entry'])
         rescue JSON::ParserError => err
           raise AuthinfoException.new(resp), 'Unable to parse JSON response' + resp.body.inspect
         end
       else
         raise AuthinfoException, "Unexpected HTTP status code from server: #{resp.code}"
       end
-      # PortableContacts::Person.new(data['entry'])
+    end
+
+    def auth_info
+      return PortableContacts::Person.new(request_auth_info['entry'])
     end
 
     class AuthinfoException < ::StandardError
