@@ -1,5 +1,6 @@
 module ProoflinkConnect
   class Assertion
+    require 'net/http'
     attr_accessor :token
 
     def initialize(token)
