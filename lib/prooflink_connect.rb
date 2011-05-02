@@ -13,12 +13,13 @@ module ProoflinkConnect
   end
 
   def self.embedded(options = {})
-    options = {:subdomain => ProoflinkConnect.config.subdomain, :token_url => 'https://example.com/auth/callbacks'}.merge(options)
-
-    if options[:forced_connect]
-      "<iframe src='#{ProoflinkConnect.config.protocol}://#{[options[:subdomain], ProoflinkConnect.config.provider_endpoint].compact.join(".")}/authentications/embedded?token_url=#{options[:token_url]}&forced_connect=1' style='width: 500px; height: 220px; border: 0;display: block' frameborder='0'></iframe>".html_safe
-    else
-      "<iframe src='#{ProoflinkConnect.config.protocol}://#{[options[:subdomain], ProoflinkConnect.config.provider_endpoint].compact.join(".")}/authentications/embedded?token_url=#{options[:token_url]}' style='width: 500px; height: 220px; border: 0;display: block' frameborder='0'></iframe>".html_safe
-    end
+    options = {
+      :subdomain => ProoflinkConnect.config.subdomain,
+      :token_url => 'https://example.com/auth/callbacks',
+      :forced_connect => '0',
+      :embed_forms => '0',
+      :width => 520,
+      :height => 250}.merge(options)
+    "<iframe src='#{ProoflinkConnect.config.protocol}://#{[options[:subdomain], ProoflinkConnect.config.provider_endpoint].compact.join(".")}/authentications/embedded?token_url=#{options[:token_url]}&forced_connect=#{options[:forced_connect]}&embed_forms=#{options[:embed_forms]}' style='width: #{options[:width]}px; height: #{options[:height]}px; border: 0;display: block' frameborder='0'></iframe>".html_safe
   end
 end
