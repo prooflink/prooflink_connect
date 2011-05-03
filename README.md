@@ -15,11 +15,11 @@ To install Prooflink Connect simply install the
 
 * Add gem 'prooflink_connect' to your Gemfile
 
-    gem 'prooflink_connect'
+  gem 'prooflink_connect'
 
 * run 'bundle install'
 
-    bundle install
+  bundle install
 
 Usage
 -----
