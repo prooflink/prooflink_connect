@@ -3,6 +3,7 @@ module ProoflinkConnect
   autoload :Assertion, "prooflink_connect/assertion"
   autoload :PortableContacts, "prooflink_connect/portable_contacts"
   autoload :ShareButton, "prooflink_connect/share_button"
+  autoload :Invite, "prooflink_connect/invite"
 
   def self.config
     Configuration.instance
