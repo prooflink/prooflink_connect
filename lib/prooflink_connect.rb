@@ -23,7 +23,7 @@ module ProoflinkConnect
       :height => 250}.merge(options)
     domain_part = [options[:subdomain], ProoflinkConnect.config.provider_endpoint].compact.join(".")
     path_part = [options[:locale], 'authentications', 'embedded'].compact.join("/")
-    query_part = 'token_url=#{options[:token_url]}&forced_connect=#{options[:forced_connect]}&embed_forms=#{options[:embed_forms]}'
+    query_part = "token_url=#{options[:token_url]}&forced_connect=#{options[:forced_connect]}&embed_forms=#{options[:embed_forms]}"
     frame_url = "#{ProoflinkConnect.config.protocol}://#{domain_part}/#{path_part}?#{query_part}"
     "<iframe src='#{frame_url}' style='width: #{options[:width]}px; height: #{options[:height]}px; border: 0;display: block' frameborder='0' allowTransparency='true'></iframe>".html_safe
   end
