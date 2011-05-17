@@ -11,6 +11,8 @@ class ProoflinkConnect::Invite < ActiveResource::Base
     end
   end
 
+  attr_accessor :locale
+
   self.site = self.site
   self.element_name = 'invite'
   self.format = :json
@@ -21,6 +23,7 @@ class ProoflinkConnect::Invite < ActiveResource::Base
 
   def save
     prefix_options[:api_key] = self.class.api_key
+    prefix_options[:locale] = self.locale||"nl"
     super
   end
 end
