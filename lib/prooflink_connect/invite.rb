@@ -3,7 +3,7 @@ class ProoflinkConnect::Invite < ActiveResource::Base
     attr_accessor :api_key
 
     def site
-      URI.parse("#{ProoflinkConnect.config.protocol}://#{ProoflinkConnect.config.provider_endpoint}/")
+      URI.parse("#{ProoflinkConnect.config.protocol}://#{ProoflinkConnect.config.subdomain}.#{ProoflinkConnect.config.provider_endpoint}/")
     end
 
     def api_key
