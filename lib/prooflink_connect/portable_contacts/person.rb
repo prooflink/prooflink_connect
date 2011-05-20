@@ -18,7 +18,7 @@ module ProoflinkConnect::PortableContacts
       # OpenSocial singular fields
       :about_me, :body_type, :current_location, :drinker, :ethnicity, :fashion, :happiest_when,
       :humor, :living_arrangement, :looking_for, :profile_song, :profile_video, :relationship_status,
-      :religion, :romance, :scared_of, :sexual_orientation, :smoker, :status
+      :religion, :romance, :scared_of, :sexual_orientation, :smoker, :status, :extra
     ]
     PLURAL_FIELDS = [
       # Portable contacts plural fields
