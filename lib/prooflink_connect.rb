@@ -6,7 +6,7 @@ module ProoflinkConnect
   autoload :Invite, "prooflink_connect/invite"
 
   def self.config
-    Configuration.instance
+    @configuration ||= Configuration.new
   end
 
   def self.configure

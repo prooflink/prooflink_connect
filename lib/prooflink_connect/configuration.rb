@@ -2,7 +2,6 @@ require 'singleton'
 
 module ProoflinkConnect
   class Configuration
-    include Singleton
 
     @@defaults = {
       :provider_endpoint => "prooflink.local",
