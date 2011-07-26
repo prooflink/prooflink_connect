@@ -1,3 +1,5 @@
+require 'cgi'
+
 module ProoflinkConnect
   class Assertion
     require 'net/http'
