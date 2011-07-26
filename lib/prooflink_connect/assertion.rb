@@ -31,7 +31,7 @@ module ProoflinkConnect
         begin
           data = JSON.parse(resp.body)
         rescue JSON::ParserError => err
-          raise AuthinfoException.new(resp), 'Unable to parse JSON response' + resp.body.inspect
+          raise AuthinfoException.new(resp), "Unable to parse JSON response: #{resp.body.inspect}"
         end
       else
         raise AuthinfoException, "Unexpected HTTP status code from server: #{resp.code}"
