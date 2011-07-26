@@ -1,3 +1,5 @@
+require 'singleton'
+
 module ProoflinkConnect
   class Configuration
     include Singleton
