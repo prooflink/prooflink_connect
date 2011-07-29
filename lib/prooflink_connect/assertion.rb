@@ -18,7 +18,7 @@ module ProoflinkConnect
     def request_auth_info(configuration)
       configuration.validate!.inspect
 
-      url = URI.parse("#{configuration.protocol}://#{[configuration.subdomain, configuration.provider_endpoint].compact.join(".")}/client_assertions/auth_info/")
+      url = URI.parse(configuration.base_uri + "/client_assertions/auth_info/")
       query = {}
       query['format'] = 'json'
       query['token'] = token

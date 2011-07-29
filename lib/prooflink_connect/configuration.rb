@@ -19,6 +19,10 @@ module ProoflinkConnect
       raise InvalidConfigurationError if [:provider_endpoint, :subdomain, :api_key, :protocol].any?{|option|send(option).blank?}
     end
 
+    def base_uri
+      "#{protocol}://#{[subdomain, provider_endpoint].compact.join(".")}"
+    end
+
     class InvalidConfigurationError < ::StandardError
     end
   end
