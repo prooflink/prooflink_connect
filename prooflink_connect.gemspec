@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Chiel Wester", "Jeroen Bulters"]
   s.email       = ["chiel.wester@holder.nl", "jeroen@bulte.rs"]
-  s.homepage    = "https://github.com/chielwester/prooflink_connect"
+  s.homepage    = "https://github.com/prooflink/prooflink_connect"
   s.summary     = "Make a connection to the prooflink connect api"
   s.description = "Make a connection to the prooflink connect api for single sign on authentication"
 
