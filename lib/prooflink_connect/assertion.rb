@@ -3,19 +3,26 @@ require 'cgi'
 module ProoflinkConnect
   class Assertion
     require 'net/http'
-    attr_accessor :token
+    attr_reader :token
 
     def initialize(token)
       @token = token
     end
 
-    def request_auth_info
-      url = URI.parse("#{ProoflinkConnect.config.protocol}://#{[ProoflinkConnect.config.subdomain, ProoflinkConnect.config.provider_endpoint].compact.join(".")}/client_assertions/auth_info/")
-      # query = partial_query.dup
+    def auth_info(configuration = ProoflinkConnect.config)
+      PortableContacts::Person.new(request_auth_info(configuration)['entry'])
+    end
+
+    private
+
+    def request_auth_info(configuration)
+      configuration.validate!.inspect
+
+      url = URI.parse(configuration.base_uri + "/client_assertions/auth_info/")
       query = {}
       query['format'] = 'json'
-      query['token'] = @token
-      query['api_key'] = ProoflinkConnect.config.api_key
+      query['token'] = token
+      query['api_key'] = configuration.api_key
 
       http = Net::HTTP.new(url.host, url.port)
 
@@ -31,15 +38,11 @@ module ProoflinkConnect
         begin
           data = JSON.parse(resp.body)
         rescue JSON::ParserError => err
-          raise AuthinfoException.new(resp), 'Unable to parse JSON response' + resp.body.inspect
+          raise AuthinfoException.new(resp), "Unable to parse JSON response: #{resp.body.inspect}"
         end
       else
         raise AuthinfoException, "Unexpected HTTP status code from server: #{resp.code}"
       end
-    end
-
-    def auth_info
-      return PortableContacts::Person.new(request_auth_info['entry'])
     end
 
     class AuthinfoException < ::StandardError
