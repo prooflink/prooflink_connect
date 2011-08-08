@@ -1,12 +1,3 @@
-require 'rubygems'
+require File.expand_path('../../lib/prooflink_connect', __FILE__)
 require 'rspec'
-require 'rspec/autorun'
-# require 'rack/test'
-# require 'webmock/rspec'
-
-# include Rack::Test::Methods
-# include WebMock
-
-require 'prooflink_connect'
-
-# WebMock.disable_net_connect!
+require 'webmock/rspec'
