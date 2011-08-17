@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe ProoflinkConnect::Share do
   before do
-    ProoflinkConnect.configure do |config|
-      config.api_key = "1234"
-    end
+    reset_configuration
   end
 
   it "posts a message to Prooflink" do
