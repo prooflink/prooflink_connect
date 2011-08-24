@@ -6,14 +6,15 @@ module ProoflinkConnect
     @@defaults = {
       :provider_endpoint => "prooflink.com",
       :subdomain => "example",
-      :protocol => "https"
+      :protocol => "https",
+      :locale => "en"
     }
 
     def initialize
       @@defaults.each_pair{|k,v| self.send("#{k}=",v)}
     end
 
-    attr_accessor :provider_endpoint, :subdomain, :api_key, :protocol
+    attr_accessor :provider_endpoint, :subdomain, :api_key, :protocol, :locale
 
     def validate!
       raise InvalidConfigurationError if [:provider_endpoint, :subdomain, :api_key, :protocol].any?{|option|send(option).blank?}

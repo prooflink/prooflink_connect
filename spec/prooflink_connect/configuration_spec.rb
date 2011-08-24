@@ -13,5 +13,12 @@ describe ProoflinkConnect::Configuration do
     end
     ProoflinkConnect.config.base_uri.should == "http://testing.local-prooflink.com"
   end
+
+  it "sets locale" do
+    ProoflinkConnect.configure do |config|
+      config.locale = "en"
+    end
+    ProoflinkConnect.config.locale.should == "en"
+  end
 end
 

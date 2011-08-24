@@ -8,5 +8,6 @@ def reset_configuration
     config.subdomain = "example"
     config.protocol = "https"
     config.api_key = "1234"
+    config.locale = "en"
   end
 end
