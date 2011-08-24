@@ -33,5 +33,18 @@ describe ProoflinkConnect::Share do
       result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder&position=spec+with+spaces' style='width: 400px; height: 355px;'></iframe>"
       ProoflinkConnect::Share.embedded(:message => "placeholder", :position => "spec with spaces").should == result
     end
+
+    it "uses correct locale" do
+      ProoflinkConnect.configure do |config|
+        config.locale = "nl"
+      end
+      result = "<iframe src='https://example.prooflink.com/nl/shares/embedded/new?message=placeholder' style='width: 400px; height: 355px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder").should == result
+    end
+
+    it "allows passing in locale" do
+      result = "<iframe src='https://example.prooflink.com/nl/shares/embedded/new?message=placeholder' style='width: 400px; height: 355px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder", :locale => "nl").should == result
+    end
   end
 end

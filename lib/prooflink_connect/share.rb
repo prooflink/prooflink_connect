@@ -13,10 +13,11 @@ module ProoflinkConnect
     def self.embedded(options = {}, config = ProoflinkConnect.config)
       options = {
         :width => "400px",
-        :height => "355px"
+        :height => "355px",
+        :locale => config.locale
       }.merge(options)
 
-      src = "#{config.base_uri}/en/shares/embedded/new?message=#{options[:message]}"
+      src = "#{config.base_uri}/#{options[:locale]}/shares/embedded/new?message=#{options[:message]}"
       src << "&position=#{CGI.escape(options[:position])}" if options[:position]
       styling = "width: #{options[:width]}; height: #{options[:height]};"
       html = "<iframe src='#{src}' style='#{styling}'></iframe>"
