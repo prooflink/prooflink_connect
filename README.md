@@ -1,4 +1,5 @@
-# Prooflink Connect
+# Prooflink Connect [![Build Status](http://travis-ci.org/prooflink/prooflink_connect.png)](http://travis-ci.org/prooflink/prooflink_connect)
+
 =================
 
 Library to connect to the [prooflink](http://www.prooflink.com) identity service provider
