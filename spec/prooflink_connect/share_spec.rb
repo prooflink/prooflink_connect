@@ -12,4 +12,26 @@ describe ProoflinkConnect::Share do
       to_return(:status => 200, :body => "", :headers => {})
     ProoflinkConnect::Share.post("pl2", "This is pretty awesome")
   end
+
+  context "sharing iframe" do
+    it "generates necessary html" do
+      result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder' style='width: 400px; height: 355px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder").should == result
+    end
+
+    it "allows setting width and height" do
+      result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder' style='width: 100%; height: 200px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder", :width => "100%", :height => "200px").should == result
+    end
+
+    it "adds the position query param" do
+      result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder&position=spec' style='width: 400px; height: 355px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder", :position => "spec").should == result
+    end
+
+    it "url encodes position" do
+      result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder&position=spec+with+spaces' style='width: 400px; height: 355px;'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder", :position => "spec with spaces").should == result
+    end
+  end
 end

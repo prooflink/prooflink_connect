@@ -9,5 +9,18 @@ module ProoflinkConnect
         "message" => message, "format" => "json"}
       response = HTTParty.post(uri, :body => params)
     end
+
+    def self.embedded(options = {}, config = ProoflinkConnect.config)
+      options = {
+        :width => "400px",
+        :height => "355px"
+      }.merge(options)
+
+      src = "#{config.base_uri}/en/shares/embedded/new?message=#{options[:message]}"
+      src << "&position=#{CGI.escape(options[:position])}" if options[:position]
+      styling = "width: #{options[:width]}; height: #{options[:height]};"
+      html = "<iframe src='#{src}' style='#{styling}'></iframe>"
+      html.respond_to?(:html_safe) ? html.html_safe : html
+    end
   end
 end
