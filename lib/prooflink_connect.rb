@@ -1,3 +1,5 @@
+require 'cgi'
+
 module ProoflinkConnect
   autoload :Configuration, "prooflink_connect/configuration"
   autoload :Assertion, "prooflink_connect/assertion"
