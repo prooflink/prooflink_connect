@@ -21,7 +21,9 @@ module ProoflinkConnect
       src = "#{config.base_uri}/#{options[:locale]}/shares/embedded/new?message=#{options[:message]}"
       src << "&position=#{CGI.escape(options[:position])}" if options[:position]
       styling = "width: #{options[:width]}; height: #{options[:height]};"
-      html = "<iframe src='#{src}' style='#{styling}'></iframe>"
+      styling << " border: 0; display: block;"
+      default_options = "frameborder='0' allowTransparency='true'"
+      html = "<iframe src='#{src}' style='#{styling}' #{default_options}></iframe>"
       html.respond_to?(:html_safe) ? html.html_safe : html
     end
   end
