@@ -5,11 +5,12 @@ rvm:
   - 1.9.2
   - ree
 
-script: "bundle exec rspec spec"    
+script: "bundle exec rspec spec"
 
 notifications:
   recipients:
     - markmulder@gmail.com
+    - stephan@ka.ag
 
 branches:
   only:
