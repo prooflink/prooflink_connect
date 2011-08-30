@@ -19,7 +19,7 @@ module ProoflinkConnect
   def self.embedded(options = {}, config = ProoflinkConnect.config)
     # needed because you didn't have to use px explicitly in the old situation
     [:width, :height].each do |dimension|
-      if options[dimension] && !options[dimension].include?("%")
+      if options[dimension] && !options[dimension].to_s.include?("%")
         options[dimension] << "px"
       end
     end
