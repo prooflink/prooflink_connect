@@ -1,5 +1,6 @@
 require 'httparty'
 require "active_support/core_ext/hash/keys"
+require "json"
 
 class ProoflinkConnect::Invite
   attr_reader :configuration, :attributes
@@ -11,11 +12,13 @@ class ProoflinkConnect::Invite
   end
 
   def save
+    return false unless attributes["id"].nil?
+
     uri = configuration.base_uri + "/invites"
     params = { "invite" => attributes, "api_key" =>  configuration.api_key, "locale" => locale || 'nl' }
     response = HTTParty.post(uri, :body => params)
 
-    if response.headers["status"] == "200"
+    if response.code == 200
       self.attributes.merge! JSON.parse(response.body)["entry"].stringify_keys
     end
 
@@ -23,6 +26,6 @@ class ProoflinkConnect::Invite
   end
 
   def person
-    ProoflinkConnect::PortableContacts::Person.new(attributes)
+    @person ||= ProoflinkConnect::PortableContacts::Person.new(attributes)
   end
 end
