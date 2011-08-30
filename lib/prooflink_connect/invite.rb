@@ -1,5 +1,6 @@
 require 'httparty'
 require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/hash/reverse_merge"
 require "json"
 
 class ProoflinkConnect::Invite
@@ -11,11 +12,12 @@ class ProoflinkConnect::Invite
     @configuration = configuration
   end
 
-  def save
+  def save params = {}
     return false unless attributes["id"].nil?
 
     uri = configuration.base_uri + "/invites"
-    params = { "invite" => attributes, "api_key" =>  configuration.api_key, "locale" => locale || 'nl' }
+    params.reverse_merge! "invite" => attributes, "api_key" =>  configuration.api_key, "locale" => locale || 'nl'
+
     response = HTTParty.post(uri, :body => params)
 
     if response.code == 200
