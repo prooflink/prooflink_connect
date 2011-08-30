@@ -12,8 +12,8 @@ class ProoflinkConnect::Invite
     @configuration = configuration
   end
 
-  def save params = {}
-    return false unless attributes["id"].nil?
+  def save(params = {})
+    return false if attributes["id"]
 
     uri = configuration.base_uri + "/invites"
     params.reverse_merge! "invite" => attributes, "api_key" =>  configuration.api_key, "locale" => locale || 'nl'
