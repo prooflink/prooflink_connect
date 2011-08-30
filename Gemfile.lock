@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    prooflink_connect (0.0.15)
+    prooflink_connect (0.0.16)
       activesupport
       httparty
       json
