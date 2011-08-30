@@ -13,7 +13,7 @@ class ProoflinkConnect::Invite
   end
 
   def save(params = {})
-    return false if attributes["id"]
+    return false if created?
 
     uri = configuration.base_uri + "/invites"
     params.reverse_merge! "invite" => attributes, "api_key" =>  configuration.api_key, "locale" => locale || 'nl'
@@ -24,10 +24,20 @@ class ProoflinkConnect::Invite
       self.attributes.merge! JSON.parse(response.body)["entry"].stringify_keys
     end
 
-    return !attributes["id"].nil?
+    return created?
+  end
+
+  def url
+    attributes["invite_url"] if created?
   end
 
   def person
     @person ||= ProoflinkConnect::PortableContacts::Person.new(attributes)
+  end
+
+  private
+
+  def created?
+    !!attributes["id"]
   end
 end

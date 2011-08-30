@@ -22,6 +22,7 @@ describe ProoflinkConnect::Invite do
     invite = ProoflinkConnect::Invite.new(attributes)
     invite.save.should == true
     invite.save.should == false
+    invite.url.should == "url"
   end
 
   it "creates a Prooflink invite with custom parameters" do
