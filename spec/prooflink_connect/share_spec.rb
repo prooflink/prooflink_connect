@@ -42,6 +42,11 @@ describe ProoflinkConnect::Share do
       ProoflinkConnect::Share.embedded(:message => "placeholder", :position => "spec with spaces").should == result
     end
 
+    it "url encodes message" do
+      result = "<iframe src='https://example.prooflink.com/en/shares/embedded/new?message=placeholder+with+spaces' style='width: 400px; height: 355px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+      ProoflinkConnect::Share.embedded(:message => "placeholder with spaces").should == result
+    end
+
     it "uses correct locale" do
       ProoflinkConnect.configure do |config|
         config.locale = "nl"

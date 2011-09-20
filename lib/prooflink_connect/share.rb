@@ -18,7 +18,7 @@ module ProoflinkConnect
         :locale => config.locale
       }.merge(options)
 
-      src = "#{config.base_uri}/#{options[:locale]}/shares/embedded/new?message=#{options[:message]}"
+      src = "#{config.base_uri}/#{options[:locale]}/shares/embedded/new?message=#{CGI.escape(options[:message])}"
       src << "&position=#{CGI.escape(options[:position])}" if options[:position]
       styling = "width: #{options[:width]}; height: #{options[:height]};"
       styling << " border: 0; display: block;"
