@@ -35,4 +35,31 @@ describe ProoflinkConnect do
     result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
     ProoflinkConnect.embedded(:use_popups => true).should == result
   end
+
+  it "sets show_header option" do
+    result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&show_header=1' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+    ProoflinkConnect.embedded(:show_header => true).should == result
+  end
+
+  it "sets register_flow option" do
+    result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&register_flow=1' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+    ProoflinkConnect.embedded(:register_flow => true).should == result
+  end
+
+  context "scenario" do
+    it "sets manual option" do
+      result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&scenario=manual' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+      ProoflinkConnect.embedded(:scenario => "manual").should == result
+    end
+
+    it "sets social option" do
+      result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&scenario=social' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+      ProoflinkConnect.embedded(:scenario => "social").should == result
+    end
+
+    it "sets split screen option" do
+      result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&scenario=split_screen' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+      ProoflinkConnect.embedded(:scenario => "split_screen").should == result
+    end
+  end
 end
