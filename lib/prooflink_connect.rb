@@ -31,7 +31,6 @@ module ProoflinkConnect
       :embed_forms => false, # will be deprecated
       :split_screen => false,
       :use_popups => true,
-      :show_header => false,
       :register_flow => false,
       :width => '520px',
       :height => '250px'}.merge(options)
@@ -43,7 +42,7 @@ module ProoflinkConnect
     query_part << "&embed_forms=1" if options[:embed_forms]
     query_part << "&split_screen=1" if options[:split_screen]
     query_part << "&use_popups=1" if options[:use_popups]
-    query_part << "&show_header=1" if options[:show_header]
+    query_part << "&show_header=#{options[:show_header] ? 1 : 0}" if !options[:show_header].nil?
     query_part << "&register_flow=1" if options[:register_flow]
     query_part << "&scenario=#{options[:scenario]}" if options[:scenario]
     frame_url = "#{config.protocol}://#{domain_part}/#{path_part}?#{query_part}"
