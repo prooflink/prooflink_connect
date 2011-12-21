@@ -36,6 +36,11 @@ describe ProoflinkConnect do
     ProoflinkConnect.embedded(:use_popups => true).should == result
   end
 
+  it "disables use_popups option" do
+    result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
+    ProoflinkConnect.embedded(:use_popups => false).should == result
+  end
+
   it "sets show_header option" do
     result = "<iframe src='https://example.prooflink.com/authentications/embedded?token_url=https://example.com/auth/callbacks&use_popups=1&show_header=1' style='width: 520px; height: 250px; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
     ProoflinkConnect.embedded(:show_header => true).should == result
