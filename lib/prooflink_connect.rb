@@ -29,8 +29,8 @@ module ProoflinkConnect
       :token_url => 'https://example.com/auth/callbacks',
       :forced_connect => false,
       :embed_forms => false, # will be deprecated
-      :use_popups => true,
       :split_screen => false,
+      :use_popups => true,
       :width => '520px',
       :height => '250px'}.merge(options)
 
