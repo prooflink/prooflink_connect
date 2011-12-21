@@ -37,10 +37,10 @@ module ProoflinkConnect
     domain_part = [options[:subdomain], config.provider_endpoint].compact.join(".")
     path_part = [options[:locale], 'authentications', 'embedded'].compact.join("/")
     query_part = "token_url=#{options[:token_url]}"
-    query_part << "&forced_connect=#{options[:forced_connect] ? 1 : 0}"
-    query_part << "&embed_forms=#{options[:embed_forms] ? 1 : 0}"
-    query_part << "&split_screen=#{options[:split_screen] ? 1 : 0}"
-    query_part << "&use_popups=#{options[:use_popups] ? 1 : 0}"
+    query_part << "&forced_connect=1" if options[:forced_connect]
+    query_part << "&embed_forms=1" if options[:embed_forms]
+    query_part << "&split_screen=1" if options[:split_screen]
+    query_part << "&use_popups=1" if options[:use_popups]
     frame_url = "#{config.protocol}://#{domain_part}/#{path_part}?#{query_part}"
     html = "<iframe src='#{frame_url}' style='width: #{options[:width]}; height: #{options[:height]}; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
     html.respond_to?(:html_safe) ? html.html_safe : html
