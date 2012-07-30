@@ -14,7 +14,7 @@ module ProoflinkConnect
       @@defaults.each_pair{|k,v| self.send("#{k}=",v)}
     end
 
-    attr_accessor :provider_endpoint, :subdomain, :api_key, :protocol, :locale
+    attr_accessor :provider_endpoint, :subdomain, :api_key, :protocol, :locale, :oauth_access_token
 
     def validate!
       raise InvalidConfigurationError if [:provider_endpoint, :subdomain, :api_key, :protocol].any?{|option|send(option).blank?}
