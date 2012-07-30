@@ -7,6 +7,7 @@ module ProoflinkConnect
   autoload :ShareButton, "prooflink_connect/share_button"
   autoload :Invite, "prooflink_connect/invite"
   autoload :Share, "prooflink_connect/share"
+  autoload :Activity, "prooflink_connect/activity"
 
   def self.config
     @configuration ||= Configuration.new
