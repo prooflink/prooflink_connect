@@ -10,9 +10,9 @@ describe ProoflinkConnect::Activity do
       with(:headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth 4321', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
       to_return do |request|
         if request.body.empty?
-          {:status => 422, :body => "Error"}
+          {:body => {:status => "ERROR", :message => "no activity specified"}.to_json}
         else
-          {:status => 200, :body => ""}
+          {:body => {:status => "SUCCESS", :message => "activity succesfully created"}.to_json}
         end
       end
   end
@@ -20,7 +20,8 @@ describe ProoflinkConnect::Activity do
   it "should log activity as expected" do
     params = {:activity_type => {:identifier => "my_identifier", :name => "My name", :value => 1},
               :user => {:email => "jon@doe.com", :identity_provider => 'prooflink'}}
-    ProoflinkConnect::Activity.log(params).status.should == 200
-    lambda{ ProoflinkConnect::Activity.log({}).status.should == 422 }.should raise_error OAuth2::Error
+
+    ProoflinkConnect::Activity.log(params).should eq({"status"=>"SUCCESS", "message"=>"activity succesfully created"})
+    ProoflinkConnect::Activity.log({}).should eq({"status"=>"ERROR", "message"=>"no activity specified"})
   end
 end

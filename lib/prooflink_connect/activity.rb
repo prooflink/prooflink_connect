@@ -23,7 +23,13 @@ module ProoflinkConnect
       client             = OAuth2::Client.new(nil, nil, {:site => ProoflinkConnect.config.base_uri})
       access_token       = OAuth2::AccessToken.new(client, oauth_access_token, :header_format => "OAuth %s")
 
-      access_token.post 'api/v2/activities', :body => {:activity => params}
+      begin
+        response = access_token.post 'api/v2/activities', :body => {:activity => params}
+        return JSON.parse(response.body)
+
+      rescue OAuth2::Error => error
+        return JSON.parse(error.response.body)
+      end
     end
   end
 end
