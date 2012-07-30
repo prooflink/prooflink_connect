@@ -9,5 +9,6 @@ def reset_configuration
     config.protocol = "https"
     config.api_key = "1234"
     config.locale = "en"
+    config.oauth_access_token = "4321"
   end
 end
