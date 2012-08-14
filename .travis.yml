@@ -11,6 +11,8 @@ notifications:
   recipients:
     - markmulder@gmail.com
     - stephan@ka.ag
+    - jermaine@holder.nl
+    - chiel.wester@holder.nl
 
 branches:
   only:
