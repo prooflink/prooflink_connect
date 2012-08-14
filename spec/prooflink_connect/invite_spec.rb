@@ -7,9 +7,10 @@ describe ProoflinkConnect::Invite do
 
   it "creates a Prooflink invite" do
     attributes = {:email => 'newuser@prooflink.com'}
+    expected_parameters = {"locale"=>["nl"], "api_key"=>["1234"], "invite[email]"=>["newuser@prooflink.com"]}
 
     stub_request(:post, "https://example.prooflink.com/invites").
-      with(:body => "invite[email]=newuser%40prooflink.com&api_key=1234&locale=nl").
+      with{|request| expected_parameters == CGI.parse(request.body)}.
       to_return(:status => 200, :body => {
         "entry" => {
           "name" => {},

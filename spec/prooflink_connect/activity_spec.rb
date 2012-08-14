@@ -7,14 +7,12 @@ describe ProoflinkConnect::Activity do
 
   before do
     stub_request(:post, "https://example.prooflink.com/api/v2/activities").
-      with(:headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth 4321', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
-      to_return do |request|
-        if request.body.empty?
-          {:body => {:status => "ERROR", :message => "no activity specified"}.to_json}
-        else
-          {:body => {:status => "SUCCESS", :message => "activity succesfully created"}.to_json}
-        end
-      end
+      with(:body => {"activity"=>{"activity_type"=>{"name"=>"My name", "value"=>"1", "identifier"=>"my_identifier"}, "user"=>{"identity_provider"=>"prooflink", "email"=>"jon@doe.com"}}}, :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth 4321', 'Content-Type'=>'application/x-www-form-urlencoded'}).
+      to_return(:status => 200, :body => {"status"=>"SUCCESS", "message"=>"activity succesfully created"}.to_json, :headers => {})
+
+    stub_request(:post, "https://example.prooflink.com/api/v2/activities").
+      with(:body => "", :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth 4321', 'Content-Type'=>'application/x-www-form-urlencoded'}).
+      to_return(:status => 406, :body => {"status"=>"ERROR", "message"=>"no activity specified"}.to_json, :headers => {})
   end
 
   it "should log activity as expected" do
@@ -22,6 +20,10 @@ describe ProoflinkConnect::Activity do
               :user => {:email => "jon@doe.com", :identity_provider => 'prooflink'}}
 
     ProoflinkConnect::Activity.log(params).should eq({"status"=>"SUCCESS", "message"=>"activity succesfully created"})
+
+  end
+
+  it "should not log activity when no params are passed" do
     ProoflinkConnect::Activity.log({}).should eq({"status"=>"ERROR", "message"=>"no activity specified"})
   end
 end
