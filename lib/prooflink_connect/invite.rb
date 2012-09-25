@@ -1,7 +1,7 @@
 require 'httparty'
-require "active_support/core_ext/hash/keys"
-require "active_support/core_ext/hash/reverse_merge"
-require "json"
+require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/hash/reverse_merge'
+require 'multi_json'
 
 class ProoflinkConnect::Invite
   attr_reader :configuration, :attributes
@@ -21,7 +21,7 @@ class ProoflinkConnect::Invite
     response = HTTParty.post(uri, :body => params)
 
     if response.code == 200
-      self.attributes.merge! JSON.parse(response.body)["entry"].stringify_keys
+      self.attributes.merge! MultiJson.load(response.body)["entry"].stringify_keys
     end
 
     return created?

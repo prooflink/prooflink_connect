@@ -25,10 +25,10 @@ module ProoflinkConnect
 
       begin
         response = access_token.post 'api/v2/activities', :body => {:activity => params}
-        return JSON.parse(response.body)
+        return MultiJson.decode(response.body)
 
       rescue OAuth2::Error => error
-        return JSON.parse(error.response.body)
+        return MultiJson.decode(error.response.body)
       end
     end
   end

@@ -11,14 +11,14 @@ describe ProoflinkConnect::Invite do
 
     stub_request(:post, "https://example.prooflink.com/invites").
       with{|request| expected_parameters == CGI.parse(request.body)}.
-      to_return(:status => 200, :body => {
+      to_return(:status => 200, :body => MultiJson.encode({
         "entry" => {
           "name" => {},
           "displayName" => "Prooflink",
           "id" => "cg6a1Turx70NWzkkwrbGRDRvImY=\n",
           "invite_url" => "url"
         }
-      }.to_json, :headers => {})
+      }), :headers => {})
 
     invite = ProoflinkConnect::Invite.new(attributes)
     invite.save.should == true
@@ -32,14 +32,14 @@ describe ProoflinkConnect::Invite do
 
     stub_request(:post, "https://example.prooflink.com/invites").
       with{|request| expected_parameters == CGI.parse(request.body)}.
-      to_return(:status => 200, :body => {
+      to_return(:status => 200, :body => MultiJson.encode({
         "entry" => {
           "name" => {},
           "displayName" => "Prooflink",
           "id" => "cg6a1Turx70NWzkkwrbGRDRvImY=\n",
           "invite_url" => "url"
         }
-      }.to_json, :headers => {})
+      }), :headers => {})
 
     invite = ProoflinkConnect::Invite.new(attributes)
     invite.save({"api_key" => "4567"}).should == true

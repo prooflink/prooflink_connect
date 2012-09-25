@@ -36,8 +36,8 @@ module ProoflinkConnect
       resp = http.post(url.path, data)
       if resp.code == '200'
         begin
-          data = JSON.parse(resp.body)
-        rescue JSON::ParserError => err
+          data = MultiJson.decode(resp.body)
+        rescue MultiJson::DecodeError => err
           raise AuthinfoException.new(resp), "Unable to parse JSON response: #{resp.body.inspect}"
         end
       else
