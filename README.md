@@ -1,4 +1,4 @@
-# Prooflink Connect [![Build Status](http://travis-ci.org/prooflink/prooflink_connect.png)](http://travis-ci.org/prooflink/prooflink_connect)
+# Prooflink Connect [![Build Status](https://travis-ci.org/prooflink/prooflink_connect.png)](http://travis-ci.org/prooflink/prooflink_connect)
 
 =================
 
