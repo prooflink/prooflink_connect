@@ -52,4 +52,8 @@ module ProoflinkConnect
     html = "<iframe src='#{frame_url}' style='width: #{options[:width]}; height: #{options[:height]}; border: 0; display: block;' frameborder='0' allowTransparency='true'></iframe>"
     html.respond_to?(:html_safe) ? html.html_safe : html
   end
+
+  def self.track_activity(identifier, user, options = {})
+    Activity.track(identifier, user, options)
+  end
 end

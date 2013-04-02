@@ -96,4 +96,9 @@ describe ProoflinkConnect do
       ProoflinkConnect.embedded(:scenario => "split_screen").should == result
     end
   end
+
+  it "tracks activities" do
+    ProoflinkConnect::Activity.should_receive(:track).with("follow", "12345", {})
+    ProoflinkConnect.track_activity("follow", "12345")
+  end
 end

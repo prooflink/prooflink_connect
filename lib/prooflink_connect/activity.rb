@@ -2,34 +2,47 @@ require 'oauth2'
 
 module ProoflinkConnect
   class Activity
-
-    # POST /api/v2/activities
-    # parameters:
-    # - activity (required) => {:activity_type => {:identifier => "some_identifier", :name => "Some name", :value => "1"}}
-    # - user => {:email => "foo@bar.com", :first_name => "Foo", :last_name => "Bar"} [for new user]
-    # - user_token => "123-456-789" [for existing user]
-    # - extra_info (optional) => {} [extra custom info you like to pass to activity]
-
-    # SAMPLE:
-
-    # ProoflinkConnect::Activity.log({
-    #     activity_type: {identifier: 'some_identifier', name: 'some_name', value: '1'},
-    #     user: {first_name: 'jon', last_name: 'doe', email: 'jon@doe.com', identity_provider: 'prooflink'},
-    #     extra_info: {your_id: '1234'}
-    # })
+    def self.track(identifier, user, options = {})
+      activity = build_request(identifier, user, options)
+      response = access_token.post('api/v2/activities', :body => {:activity => activity})
+      MultiJson.decode(response.body)
+    rescue OAuth2::Error => error
+      MultiJson.decode(error.response.body)
+    end
 
     def self.log(params)
-      oauth_access_token = ProoflinkConnect.config.oauth_access_token
-      client             = OAuth2::Client.new(nil, nil, {:site => ProoflinkConnect.config.base_uri})
-      access_token       = OAuth2::AccessToken.new(client, oauth_access_token, :header_format => "OAuth %s")
+      warn "Activity.log() is deprecated. Please use Activity.track() instead."
 
-      begin
-        response = access_token.post 'api/v2/activities', :body => {:activity => params}
-        return MultiJson.decode(response.body)
+      response = access_token.post('api/v2/activities', :body => {:activity => params})
+      MultiJson.decode(response.body)
+    rescue OAuth2::Error => error
+      MultiJson.decode(error.response.body)
+    end
 
-      rescue OAuth2::Error => error
-        return MultiJson.decode(error.response.body)
+    private
+
+    def self.build_request(identifier, user, options)
+      activity = {:activity_type => {:identifier => identifier}}
+      activity[:activity_type][:name] = options[:activity_name] if options[:activity_name]
+      activity[:activity_type][:value] = options[:activity_value] if options[:activity_value]
+      activity[:extra_info] = options[:extra_info] if options[:extra_info]
+
+      if user.is_a?(Hash)
+        activity.merge!({:user => user})
+      else
+        activity.merge!({:user_token => user})
+      end
+
+      activity
+    end
+
+    def self.access_token
+      @access_token ||= begin
+        oauth_access_token = ProoflinkConnect.config.oauth_access_token
+        client = OAuth2::Client.new(nil, nil, {:site => ProoflinkConnect.config.base_uri})
+        access_token = OAuth2::AccessToken.new(client, oauth_access_token, :header_format => "OAuth %s")
       end
     end
   end
 end
+
