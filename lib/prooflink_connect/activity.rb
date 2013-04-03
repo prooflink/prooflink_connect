@@ -3,6 +3,8 @@ require 'oauth2'
 module ProoflinkConnect
   class Activity
     def self.track(identifier, user, options = {})
+      return if !perform_request?
+
       activity = build_request(identifier, user, options)
       response = access_token.post('api/v2/activities', :body => {:activity => activity})
       MultiJson.decode(response.body)
@@ -42,6 +44,15 @@ module ProoflinkConnect
         client = OAuth2::Client.new(nil, nil, {:site => ProoflinkConnect.config.base_uri})
         access_token = OAuth2::AccessToken.new(client, oauth_access_token, :header_format => "OAuth %s")
       end
+    end
+
+    def self.perform_request?
+      if !ProoflinkConnect.config.enable_activity_tracking.nil?
+        return ProoflinkConnect.config.enable_activity_tracking
+      end
+      return false if defined?(Rails) && !Rails.env.production?
+      return false if ENV['RACK_ENV'] && ENV['RACK_ENV'] != "production"
+      true
     end
   end
 end

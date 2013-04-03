@@ -38,5 +38,11 @@ describe ProoflinkConnect::Activity do
     options = {:activity_name => "Following", :activity_value => 1}
     ProoflinkConnect::Activity.track("follow", "12345", options)
   end
+
+  it "allows disabling of activity tracking" do
+    ProoflinkConnect.config.enable_activity_tracking = false
+    ProoflinkConnect::Activity.should_not_receive(:build_request)
+    ProoflinkConnect::Activity.track("follow", "12345")
+  end
 end
 
