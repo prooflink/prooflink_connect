@@ -29,10 +29,11 @@ module ProoflinkConnect
       activity[:activity_type][:value] = options[:activity_value] if options[:activity_value]
       activity[:extra_info] = options[:extra_info] if options[:extra_info]
 
+      # In case of a new user that has no identifier yet
       if user.is_a?(Hash)
         activity.merge!({:user => user})
       else
-        activity.merge!({:user_token => user})
+        activity.merge!({:user => {:identifier => user}})
       end
 
       activity

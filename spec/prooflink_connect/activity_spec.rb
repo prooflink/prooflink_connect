@@ -33,7 +33,7 @@ describe ProoflinkConnect::Activity do
 
   it "existing user" do
     stub_request(:post, "https://example.prooflink.com/api/v2/activities").
-      with(:body => {"activity" => {"activity_type" => {"identifier" => "follow", "name" => "Following", "value" => "1"}, "user_token" => "12345"}}).
+      with(:body => {"activity" => {"activity_type" => {"identifier" => "follow", "name" => "Following", "value" => "1"}, "user" => {"identifier" => "12345"}}}).
       to_return(:status => 200, :body => MultiJson.encode({"status" => "SUCCESS", "message" => "activity succesfully created"}), :headers => {})
     options = {:activity_name => "Following", :activity_value => 1}
     ProoflinkConnect::Activity.track("follow", "12345", options)
