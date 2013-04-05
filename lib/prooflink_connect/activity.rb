@@ -28,12 +28,13 @@ module ProoflinkConnect
       activity[:activity_type][:name] = options[:activity_name] if options[:activity_name]
       activity[:activity_type][:value] = options[:activity_value] if options[:activity_value]
       activity[:extra_info] = options[:extra_info] if options[:extra_info]
+      activity[:user] = {:identity_provider => 'prooflink'}
 
       # In case of a new user that has no identifier yet
       if user.is_a?(Hash)
-        activity.merge!({:user => user})
+        activity[:user].merge!(user)
       else
-        activity.merge!({:user => {:identifier => user}})
+        activity[:user][:identifier] = user
       end
 
       activity
